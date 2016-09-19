@@ -11,7 +11,7 @@
 #include "am335x-bone-common-no-capemgr.dtsi"
 #include "am335x-bone-common-universal.dtsi"
 #include "am33xx-overlay-edma-fix.dtsi"
-/* #include "am335x-boneblack-wl1835.dtsi" */
+#include "am335x-boneblue-wl1835.dtsi"
 /* #include "am335x-bone-jtag.dtsi" */
 
 /* pruss: pick one: */
