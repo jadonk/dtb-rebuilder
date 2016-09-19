@@ -162,6 +162,13 @@
 		>;
 	};
 
+	i2c2_pins: pinmux_i2c2_pins {
+		pinctrl-single,pins = <
+			AM33XX_IOPAD(0x978, PIN_INPUT_PULLUP | MUX_MODE3)	/* uart1_ctsn.i2c2_sda */
+			AM33XX_IOPAD(0x97c, PIN_INPUT_PULLUP | MUX_MODE3)	/* uart1_rtsn.i2c2_scl */
+		>;
+	};
+
 	/****************************************/
 	/* DSM2 UART4 pinmux                    */
 	/* only pin that swaps between GPIO&UART*/
@@ -318,6 +325,18 @@
 	/* add any i2c devices on the bus here */
 };
 
+&i2c2 {	        /* i2c2 is numbered correctly */
+	pinctrl-names = "default";
+	pinctrl-0 = <&i2c2_pins>;
+
+	status = "okay";
+	clock-frequency = <400000>;
+
+	#address-cells = <1>;
+	#size-cells = <0>;
+
+	/* add any i2c devices on the bus here */
+};
 
 /****************************************
 		SPI
