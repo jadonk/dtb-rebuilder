@@ -82,8 +82,8 @@
 			0x178  0x73 /* P9.20, i2c2_sda, mode 3 */
 
 			/* UART5 */
-			0x0C4 0x34	/* P8.38,uart5_rxd,MODE4 */
-			0x0C0 0x14	/* P8.37,uart5_txd,MODE4 */
+			0x0C4 0x37	/* P8.38,gpio 79 */
+			0x0C0 0x37	/* P8.37,gpio 78 */
 
 		>;
 	};
