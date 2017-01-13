@@ -143,7 +143,7 @@
 		***********************************************************************/
 		/* H18 SPI1_SS1    */
 		H18_default_pin: pinmux_H18_default_pin {
-			pinctrl-single,pins = < 0x144 ( PIN_OUTPUT | MUX_MODE4 ) >; };
+			pinctrl-single,pins = < 0x144 ( PIN_OUTPUT | MUX_MODE2 ) >; };
 		H18_gpio_pin: pinmux_H18_gpio_pin {
 			pinctrl-single,pins = < 0x144 ( PIN_OUTPUT | MUX_MODE7 ) >; };
 		H18_gpio_pu_pin: pinmux_H18_gpio_pu_pin {
@@ -155,7 +155,7 @@
 
 		/* C18 SPI1_SS2    */
 		C18_default_pin: pinmux_C18_default_pin {
-			pinctrl-single,pins = < 0x164 ( PIN_OUTPUT | MUX_MODE4 ) >; };
+			pinctrl-single,pins = < 0x164 ( PIN_OUTPUT | MUX_MODE2 ) >; };
 		C18_gpio_pin: pinmux_C18_gpio_pin {
 			pinctrl-single,pins = < 0x164 ( PIN_OUTPUT | MUX_MODE7 ) >; };
 		C18_gpio_pu_pin: pinmux_C18_gpio_pu_pin {
