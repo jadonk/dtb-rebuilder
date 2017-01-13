@@ -206,6 +206,11 @@
 			pinctrl-single,pins = < 0x10C ( PIN_INPUT_PULLDOWN | MUX_MODE7 ) >; };
 	};
 
+	led_pins: pinmux_led_pins {
+		pinctrl-single,pins = <
+			0x1B0 (PIN_OUTPUT | MUX_MODE7)	/* (A15) xdma_event_intr0.gpio0[19] - WIFI_LED */
+		>;
+	};
 };
 
 
@@ -572,5 +577,24 @@
 		compatible = "spidev";
 		reg = <1>;
 		spi-max-frequency = <24000000>;
+	};
+};
+
+/ {
+	leds {
+		pinctrl-names = "default";
+		pinctrl-0 = <&led_pins>;
+		compatible = "gpio-leds";
+
+		wifi_led {
+			label = "wifi";
+			gpios = <&gpio0 19 GPIO_ACTIVE_HIGH>;
+			default-state = "off";
+			linux,default-trigger = "phy0assoc";
+		};
+	};
+
+	btwilink {
+		compatible = "btwilink";
 	};
 };
