@@ -95,7 +95,7 @@
 			0x034 0x34  /* P8_11,EQEP2B, MODE4 */
 
 			/* PRU encoder input */
-			0x03c 0x36	/* P8_15,PRU0_r31_15,MODE6 */
+			0x03c 0x35
 			0x038 0x36	/* P8_16,PRU0_r31_16,MODE6 */
 
 			/* PRU Servo output */
@@ -610,25 +610,25 @@
 		};
 
 		batt_1_led {
-			label = "bat25";
+			label = "bat0";
 			gpios = <&gpio0 27 GPIO_ACTIVE_HIGH>;
 			default-state = "off";
 		};
 
 		batt_2_led {
-			label = "bat50";
+			label = "bat1";
 			gpios = <&gpio0 11 GPIO_ACTIVE_HIGH>;
 			default-state = "off";
 		};
 
 		batt_3_led {
-			label = "bat75";
+			label = "bat2";
 			gpios = <&gpio1 29 GPIO_ACTIVE_HIGH>;
 			default-state = "off";
 		};
 
 		batt_4_led {
-			label = "bat100";
+			label = "bat3";
 			gpios = <&gpio0 26 GPIO_ACTIVE_HIGH>;
 			default-state = "off";
 		};
