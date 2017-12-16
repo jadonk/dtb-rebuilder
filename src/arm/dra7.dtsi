@@ -179,7 +179,7 @@
 						pbias_mmc_reg: pbias_mmc_omap5 {
 							regulator-name = "pbias_mmc_omap5";
 							regulator-min-microvolt = <1800000>;
-							regulator-max-microvolt = <3000000>;
+							regulator-max-microvolt = <3300000>;
 						};
 					};
 
@@ -295,8 +295,11 @@
 			#address-cells = <1>;
 			ranges = <0x51000000 0x51000000 0x3000
 				  0x0	     0x20000000 0x10000000>;
-			pcie1: pcie@51000000 {
-				compatible = "ti,dra7-pcie";
+			/**
+			 * To enable PCI endpoint mode, disable the pcie1_rc
+			 * node and enable pcie1_ep mode.
+			 */
+			pcie1_rc: pcie_rc@51000000 {
 				reg = <0x51000000 0x2000>, <0x51002000 0x14c>, <0x1000 0x2000>;
 				reg-names = "rc_dbics", "ti_conf", "config";
 				interrupts = <0 232 0x4>, <0 233 0x4>;
@@ -311,16 +314,33 @@
 				ti,hwmods = "pcie1";
 				phys = <&pcie1_phy>;
 				phy-names = "pcie-phy0";
+				syscon-lane-conf = <&scm_conf 0x558>;
+				syscon-lane-sel = <&scm_conf_pcie 0x18>;
 				interrupt-map-mask = <0 0 0 7>;
 				interrupt-map = <0 0 0 1 &pcie1_intc 1>,
 						<0 0 0 2 &pcie1_intc 2>,
 						<0 0 0 3 &pcie1_intc 3>,
 						<0 0 0 4 &pcie1_intc 4>;
+				status = "disabled";
 				pcie1_intc: interrupt-controller {
 					interrupt-controller;
 					#address-cells = <0>;
 					#interrupt-cells = <1>;
 				};
+			};
+
+			pcie1_ep: pcie_ep@51000000 {
+				reg = <0x51000000 0x28>, <0x51002000 0x14c>, <0x51001000 0x28>, <0x1000 0x10000000>;
+				reg-names = "ep_dbics", "ti_conf", "ep_dbics2", "addr_space";
+				interrupts = <0 232 0x4>;
+				num-lanes = <1>;
+				num-ib-windows = <4>;
+				num-ob-windows = <16>;
+				ti,hwmods = "pcie1";
+				phys = <&pcie1_phy>;
+				phy-names = "pcie-phy0";
+				syscon-legacy-mode = <&scm_conf1 0x14 2>;
+				status = "disabled";
 			};
 		};
 
@@ -331,8 +351,7 @@
 			ranges = <0x51800000 0x51800000 0x3000
 				  0x0	     0x30000000 0x10000000>;
 			status = "disabled";
-			pcie@51800000 {
-				compatible = "ti,dra7-pcie";
+			pcie2_rc: pcie@51800000 {
 				reg = <0x51800000 0x2000>, <0x51802000 0x14c>, <0x1000 0x2000>;
 				reg-names = "rc_dbics", "ti_conf", "config";
 				interrupts = <0 355 0x4>, <0 356 0x4>;
@@ -983,7 +1002,7 @@
 		};
 
 		dmm@4e000000 {
-			compatible = "ti,omap5-dmm";
+			compatible = "ti,dra7-dmm", "ti,omap5-dmm";
 			reg = <0x4e000000 0x800>;
 			interrupts = <GIC_SPI 108 IRQ_TYPE_LEVEL_HIGH>;
 			ti,hwmods = "dmm";
@@ -1034,13 +1053,13 @@
 		};
 
 		bb2d: bb2d@59000000 {
-			compatible = "ti,dra7-bb2d";
+			compatible = "ti,dra7-bb2d","vivante,gc";
 			reg = <0x59000000 0x0700>;
 			interrupts = <GIC_SPI 120 IRQ_TYPE_LEVEL_HIGH>;
 			ti,hwmods = "bb2d";
 			clocks = <&dpll_core_h24x2_ck>;
 			clock-names = "fclk";
-			status = "disabled";
+			status = "okay";
 		};
 
 		i2c1: i2c@48070000 {
@@ -1672,6 +1691,7 @@
 			phy-names = "sata-phy";
 			clocks = <&sata_ref_clk>;
 			ti,hwmods = "sata";
+			ports-implemented = <0x1>;
 		};
 
 		rtc: rtc@48838000 {
