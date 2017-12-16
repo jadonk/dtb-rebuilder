@@ -35,6 +35,8 @@
 		phy1 = &usb1_phy;
 		ethernet0 = &cpsw_emac0;
 		ethernet1 = &cpsw_emac1;
+		spi0 = &spi0;
+		spi1 = &spi1;
 	};
 
 	cpus {
@@ -784,9 +786,10 @@
 			eqep0: eqep@0x48300180 {
 				compatible = "ti,am33xx-eqep";
 				reg = <0x48300180 0x80>;
+				clocks = <&l4ls_gclk>;
+				clock-names = "fck";
 				interrupt-parent = <&intc>;
 				interrupts = <79>;
-				ti,hwmods = "eqep0";
 				status = "disabled";
 			};
 
@@ -828,9 +831,10 @@
 			eqep1: eqep@0x48302180 {
 				compatible = "ti,am33xx-eqep";
 				reg = <0x48302180 0x80>;
+				clocks = <&l4ls_gclk>;
+				clock-names = "fck";
 				interrupt-parent = <&intc>;
 				interrupts = <88>;
-				ti,hwmods = "eqep1";
 				status = "disabled";
 			};
 
@@ -871,9 +875,10 @@
 			eqep2: eqep@0x48304180 {
 				compatible = "ti,am33xx-eqep";
 				reg = <0x48304180 0x80>;
+				clocks = <&l4ls_gclk>;
+				clock-names = "fck";
 				interrupt-parent = <&intc>;
 				interrupts = <89>;
-				ti,hwmods = "eqep2";
 				status = "disabled";
 			};
 

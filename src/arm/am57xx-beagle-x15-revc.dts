@@ -1,15 +1,16 @@
 /*
- * Copyright (C) 2014-2016 Texas Instruments Incorporated - http://www.ti.com/
+ * Copyright (C) 2016 Texas Instruments Incorporated - http://www.ti.com/
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 as
  * published by the Free Software Foundation.
  */
-#include "am5718-beagle-x15-common.dtsi"
+#include "am57xx-beagle-x15-common.dtsi"
 #include "am57xx-commercial-grade.dtsi"
+#include "am57xx-cmem.dtsi"
 
 / {
-	model = "TI AM5718 BeagleBoard-X15";
+	model = "TI AM5728 BeagleBoard-X15 rev C";
 };
 
 &dra7_pmx_core {
@@ -120,7 +121,7 @@
 
 &tpd12s015 {
 	gpios = <&gpio7 10 GPIO_ACTIVE_HIGH>,	/* gpio7_10, CT CP HPD */
-		<&gpio6 28 GPIO_ACTIVE_HIGH>,	/* gpio6_28, LS OE */
+		<&gpio2 30 GPIO_ACTIVE_HIGH>,	/* gpio2_30, LS OE */
 		<&gpio7 12 GPIO_ACTIVE_HIGH>;	/* gpio7_12/sp1_cs2, HPD */
 };
 
@@ -129,7 +130,9 @@
 	pinctrl-0 = <&mmc1_pins_default>;
 	pinctrl-1 = <&mmc1_pins_hs>;
 
-	vmmc-supply = <&ldo1_reg>;
+	vmmc-supply = <&vdd_3v3>;
+	vmmc-aux-supply = <&ldo1_reg>;
+
 	max-frequency = <96000000>;
 	/delete-property/ sd-uhs-sdr104;
 	/delete-property/ sd-uhs-sdr50;
